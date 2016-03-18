@@ -1,4 +1,7 @@
+package koodit;
 
+
+import koodit.TxtReader;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 

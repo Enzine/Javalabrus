@@ -1,3 +1,5 @@
+package koodit;
+
 public class Owner {
     private String name;
 

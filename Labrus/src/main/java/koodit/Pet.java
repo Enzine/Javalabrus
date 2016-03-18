@@ -1,3 +1,5 @@
+package koodit;
+
 public class Pet {
     private String name;
     private String age;
