@@ -8,6 +8,6 @@ Peli nimeltään Silly Naked Furry Bellybutton Pets. Kyseessä on lemmikkisimula
 Aloitusnäytöllä voisi olla kiva kuva/logo pelistä yms. esittelytekstit sekä mahdollisuus valita uusi peli, ladata vanha ja sammuttaa peli. Valittua "Uusi peli": --> Mikään ei sinänsä liiku ruudulla. Siellä on nähtävissä omistettavat lemmikit kuvina (en ole vielä päättänyt maksimia, mutta ehkä 2-3 kpl). Kaikki poikaset ovat samannäköisiä, mutta aikuisia on valmiiksi tehtyjä yksilöitä, joista satunnaisesti valikoituu yksi aina poikasen kasvaessa. Ruudulla on ikkuna, jossa on "lemmikkiruutu", jossa näkyvät kaikki lemmikit ja niiden tiedot. Ikkunassa on myös erillinen palkki, jossa tekstinä näkyy tapahtuvat asiat.
 
 **Käyttäjät:** Pelaaja.
-	** Pelaajan toiminnot: **
+	**Pelaajan toiminnot:**
 		- tiedon syöttäminen järjestelmään
 		- lemmikkien hoitoon ja hallintaan liittyvät toimenpiteet
