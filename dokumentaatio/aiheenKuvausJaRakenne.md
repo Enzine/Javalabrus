@@ -11,6 +11,5 @@ Aloitusnäytöllä voisi olla kiva kuva/logo pelistä yms. esittelytekstit sekä
 
 **Käyttäjät:** Pelaaja.
 
-**Pelaajan toiminnot:**
 - tiedon syöttäminen järjestelmään
 - lemmikkien hoitoon ja hallintaan liittyvät toimenpiteet
