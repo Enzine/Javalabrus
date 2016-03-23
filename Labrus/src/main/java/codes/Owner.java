@@ -1,4 +1,4 @@
-package koodit;
+package codes;
 
 public class Owner {
     private String name;

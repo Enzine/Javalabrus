@@ -1,6 +1,7 @@
-package koodit;
+package codes;
 
 public class Pet {
+
     private String name;
     private String age;
     private int points;
@@ -16,18 +17,68 @@ public class Pet {
         this.age = "baby";
         this.points = 0;
         this.mood = "Wondering who you are...";
-        this.hunger = 0;
-        this.thirst = 0;
-        this.fun = 0;
-        this.sleep = 0;
-        this.bladder = 10;
+        this.hunger = 5;
+        this.thirst = 5;
+        this.fun = 5;
+        this.sleep = 5;
+        this.bladder = 5;
+    }
+
+    public void eat() {
+        if (this.hunger == 10) {
+            System.out.println("");
+        } else if (this.hunger == 9) {
+            this.hunger++;
+        } else {
+            this.hunger += 2;
+        }
+    }
+
+    public void drink() {
+        if (this.thirst == 10) {
+            System.out.println("");
+        } else if (this.thirst == 9) {
+            this.thirst++;
+        } else {
+            this.thirst += 2;
+        }
+    }
+
+    public void haveFun() {
+        if (this.fun == 10) {
+            System.out.println("");
+        } else if (this.fun == 9) {
+            this.fun++;
+        } else {
+            this.fun += 2;
+        }
+    }
+    
+    public void emptyBladder() {
+        if (this.bladder < 5) {
+            this.bladder = 10;
+        }
+    }
+    
+    public void sleep() {
+        if (this.sleep < 5) {
+            this.sleep = 10;
+            this.bladder -= 2;
+            this.hunger -= 2;
+            this.thirst -= 2;
+            this.fun++;
+        }
+    }
+
+    public double countAvgHappiness() {
+        return (hunger + thirst + fun + sleep + bladder) / (1.0 * 5);
     }
 
     @Override
     public String toString() {
         return "Name: " + name + "\nAge: " + age + "\nPoints: " + points + "\nMood: " + mood
                 + "\n\nHungry/Full: " + hunger + "/10\nThirsty/Full: " + thirst + "/10\nBored/Fun: " + fun + "/10\nTired/Awake: " + sleep + "/10\nBladderFull/Empty: " + bladder + "/10";
-    } 
+    }
 
     public String getName() {
         return name;
@@ -50,7 +101,7 @@ public class Pet {
     }
 
     public void setPoints(int points) {
-        this.points = points;
+        this.points += points;
     }
 
     public String getMood() {
@@ -100,5 +151,5 @@ public class Pet {
     public void setBladder(int bladder) {
         this.bladder = bladder;
     }
-    
+
 }

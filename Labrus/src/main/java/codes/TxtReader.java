@@ -1,4 +1,4 @@
-package koodit;
+package codes;
 
 
 import java.io.File;
@@ -18,19 +18,10 @@ public class TxtReader {
         list = new ArrayList<>();
     }
     
-    public ArrayList<String> listRows() {
+    public ArrayList<String> getRows() {
         while (scanner.hasNext()) {
             list.add(scanner.nextLine());
         }
         return list;
-    }
-    
-    
-    public void printRows() {
-        listRows();
-        for (String row : list) {
-            System.out.println(row);
-        }
-    }
-    
+    }    
 }
