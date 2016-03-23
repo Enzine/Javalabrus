@@ -8,7 +8,7 @@ public class MoodMaker {
 
     private TxtReader reader;
     private Random random = new Random();
-
+ 
     private List<String> rows() {
         return reader.getRows();
     }

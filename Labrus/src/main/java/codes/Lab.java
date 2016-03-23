@@ -27,22 +27,20 @@ public class Lab {
 
     public void feedPet(Pet pet) {
         pet.eat();
-        pet.setPoints(1);
     }
 
     public void giveWaterToPet(Pet pet) {
         pet.drink();
-        pet.setPoints(1);
     }
 
     public void playWithPet(Pet pet) {
         pet.haveFun();
-        pet.setPoints(2);
     }
 
     public void takePetOut(Pet pet) {
         pet.haveFun();
         pet.emptyBladder();
+        pet.setSleepiness(pet.getSleepiness() - 2);
         pet.setHunger(pet.getHunger() - 2);
         pet.setPoints(3);
     }
@@ -53,6 +51,10 @@ public class Lab {
 
     public void addPet(Pet pet) throws FileNotFoundException {
         pets.add(pet);
+    }
+    
+    public void removePet(Pet pet) {
+        pets.remove(pet);
     }
 
     public List<Pet> getPets() {

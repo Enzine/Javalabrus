@@ -6,6 +6,7 @@ public class Pet {
     private String age;
     private int points;
     private String mood;
+    
     private int hunger;
     private int thirst;
     private int fun;
@@ -25,48 +26,51 @@ public class Pet {
     }
 
     public void eat() {
-        if (this.hunger == 10) {
+        if (hunger == 10) {
             System.out.println("");
-        } else if (this.hunger == 9) {
-            this.hunger++;
+        } else if (hunger == 9) {
+            hunger++;
         } else {
-            this.hunger += 2;
+            hunger += 2;
+            setPoints(1);
         }
     }
 
     public void drink() {
-        if (this.thirst == 10) {
+        if (thirst == 10) {
             System.out.println("");
-        } else if (this.thirst == 9) {
-            this.thirst++;
+        } else if (thirst == 9) {
+            thirst++;
         } else {
-            this.thirst += 2;
+            thirst += 2;
+            setPoints(1);
         }
     }
 
     public void haveFun() {
-        if (this.fun == 10) {
+        if (fun == 10) {
             System.out.println("");
-        } else if (this.fun == 9) {
-            this.fun++;
+        } else if (fun == 9) {
+            fun++;
         } else {
             this.fun += 2;
+            setPoints(2);
         }
     }
     
     public void emptyBladder() {
-        if (this.bladder < 5) {
-            this.bladder = 10;
+        if (bladder <= 5) {
+            bladder = 10;
         }
     }
     
     public void sleep() {
-        if (this.sleep < 5) {
-            this.sleep = 10;
-            this.bladder -= 2;
-            this.hunger -= 2;
-            this.thirst -= 2;
-            this.fun++;
+        if (sleep < 5) {
+            sleep = 10;
+            bladder -= 2;
+            hunger -= 2;
+            thirst -= 2;
+            fun++;
         }
     }
 

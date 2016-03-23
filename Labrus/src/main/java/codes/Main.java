@@ -1,10 +1,7 @@
 package codes;
 
 
-import codes.TxtReader;
 import java.io.FileNotFoundException;
-import java.util.Random;
-import java.util.Scanner;
 
 public class Main {
 
@@ -21,6 +18,8 @@ public class Main {
         lab.giveWaterToPet(pet);
         lab.playWithPet(pet);
         lab.takePetOut(pet);
+        
+        lab.getMoodMaker().recogniseMood(pet);
         
         System.out.println(pet + "\n");
         
