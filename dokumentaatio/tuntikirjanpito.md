@@ -8,3 +8,4 @@ Päivä | Tunnit | Kuvaus
 18.03.2016 | 5,0h | 1. palautuksen dokumentaation valmistuminen, aiheen päättäminen ja kehittely sekä muutaman luokan teko kokeeksi
 21.03.2016 | 2h | Rakenteen suunnittelua, luokkien täydennystä
 23.03.2016 | 2h | Testien tekoa ja luokkien kehittelyä
+01.04.2016 | 2h | Luokkakaavio + pit + checkstyle yms.
