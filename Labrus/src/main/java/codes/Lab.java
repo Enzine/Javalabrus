@@ -52,7 +52,7 @@ public class Lab {
     public void addPet(Pet pet) throws FileNotFoundException {
         pets.add(pet);
     }
-    
+
     public void removePet(Pet pet) {
         pets.remove(pet);
     }

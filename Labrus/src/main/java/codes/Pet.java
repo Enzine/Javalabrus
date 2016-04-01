@@ -6,7 +6,7 @@ public class Pet {
     private String age;
     private int points;
     private String mood;
-    
+
     private int hunger;
     private int thirst;
     private int fun;
@@ -57,13 +57,13 @@ public class Pet {
             setPoints(2);
         }
     }
-    
+
     public void emptyBladder() {
         if (bladder <= 5) {
             bladder = 10;
         }
     }
-    
+
     public void sleep() {
         if (sleep < 5) {
             sleep = 10;
@@ -155,5 +155,4 @@ public class Pet {
     public void setBladder(int bladder) {
         this.bladder = bladder;
     }
-
 }

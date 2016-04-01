@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TxtReader {
+
     private Scanner scanner;
     private File file;
     private ArrayList<String> list;
@@ -15,11 +16,11 @@ public class TxtReader {
         this.scanner = new Scanner(file);
         list = new ArrayList<>();
     }
-    
+
     public ArrayList<String> getRows() {
         while (scanner.hasNext()) {
             list.add(scanner.nextLine());
         }
         return list;
-    }    
+    }
 }

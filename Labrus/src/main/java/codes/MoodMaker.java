@@ -8,7 +8,7 @@ public class MoodMaker {
 
     private TxtReader reader;
     private Random random = new Random();
- 
+
     private List<String> rows() {
         return reader.getRows();
     }
@@ -17,12 +17,12 @@ public class MoodMaker {
 
         if (pet.countAvgHappiness() > 9) {
             reader = new TxtReader("greatmood.txt");
-            Random random = new Random(); 
+            Random random = new Random();
             int r = random.nextInt(rows().size());
             pet.setMood(rows().get(r));
-        } else if (pet.countAvgHappiness() >= 5){
+        } else if (pet.countAvgHappiness() >= 5) {
             reader = new TxtReader("goodmood.txt");
-            Random random = new Random(); 
+            Random random = new Random();
             int r = random.nextInt(rows().size());
             pet.setMood(rows().get(r));
         } else if (pet.countAvgHappiness() < 5) {

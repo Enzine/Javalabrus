@@ -1,8 +1,6 @@
 ## Ohjelmoinnin harjoitustyö kevät 2016
 _Sonja Mäkipaja, 014589009_
 
-![Ensimmäinen luonnos: napakarvaeläin](/dokumentaatio/napakarvaelain.png)
-
 **Aihe:** 
 
 Peli nimeltään Silly Naked Furry Bellybutton Pets. Kyseessä on lemmikkisimulaattori, jossa pelaajalla on hassu lemmikki. Lemmikkiä hoidetaan ja sen puuhailuja voi seurata. Erilaisista tapahtumista saa pisteitä, joiden avulla on mahdollista mm. pariuttaa lemmikki ja saada sille jälkeläinen. Tarkoitus olisi, että pelin voi tallentaa myöhempää varten. Lemmikki syö, juo ja nukkuu ja sen tarpeista tulee huolehtia. Jotkin asiat tekee lemmikin surulliseksi ja jotkut iloiseksi. Jos lemmikki on surullinen, se ei voi lisääntyä. Lisääntyminen tapahtuu siten, että joissain kohdin ruudulle ilmestyy kysymys: "Haluatko lemmikillesi jälkeläisiä? K/E?" Pelaaja voi vastata kyllä (K) tai ei (E). Jos vastaus on K, niin poikanen ilmestyy. Poikanen on poikanen, kunnes se saa kerättyä tietyn määrän pisteitä, jonka jälkeen se "kasvaa".
@@ -16,4 +14,4 @@ Aloitusnäytöllä voisi olla kiva kuva/logo pelistä yms. esittelytekstit sekä
 - tiedon syöttäminen järjestelmään
 - lemmikkien hoitoon ja hallintaan liittyvät toimenpiteet
 
-![alustava luokkakaavio](/dokumentaatio/luokkakaavio.png)
+![Alt text](/dokumentaatio/luokkakaavio.png)
