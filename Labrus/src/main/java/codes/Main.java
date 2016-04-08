@@ -1,5 +1,7 @@
 package codes;
 
+import logic.Lab;
+import logic.Pet;
 import java.io.FileNotFoundException;
 
 public class Main {

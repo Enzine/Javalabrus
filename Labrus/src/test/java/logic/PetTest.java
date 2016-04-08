@@ -1,7 +1,7 @@
-package codes;
+package logic;
 
 
-import codes.Pet;
+import logic.Pet;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,21 +16,9 @@ public class PetTest {
     public PetTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
     @Before
     public void setUp() {
         pet = new Pet("Keimo");
-    }
-
-    @After
-    public void tearDown() {
     }
 
     @Test

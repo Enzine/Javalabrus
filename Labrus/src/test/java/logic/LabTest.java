@@ -1,8 +1,8 @@
-package codes;
+package logic;
 
 
-import codes.Lab;
-import codes.Pet;
+import logic.Lab;
+import logic.Pet;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,23 +21,11 @@ public class LabTest {
     public LabTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
     @Before
     public void setUp() throws FileNotFoundException {
         lab = new Lab("Jäbäleisson");
         pet = new Pet("Ada");
         lab.addPet(pet);
-    }
-
-    @After
-    public void tearDown() {
     }
 
     @Test
