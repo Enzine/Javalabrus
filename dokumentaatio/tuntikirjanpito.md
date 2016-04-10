@@ -9,4 +9,5 @@ Päivä | Tunnit | Kuvaus
 21.03.2016 | 2h | Rakenteen suunnittelua, luokkien täydennystä
 23.03.2016 | 2h | Testien tekoa ja luokkien kehittelyä
 01.04.2016 | 2h | Luokkakaavio + pit + checkstyle yms.
-08.04.2016 | 1h | Lontoossa luokkien läpikäynti ja korjailu ym. netin pläräily projektiin liittyen.
+08.04.2016 | 1h | Lontoossa luokkien läpikäynti ja korjailu ym. netin pläräily projektiin liittyen
+09.04.2016 | 3h | UI-kokeiluja ja alustava ikkuna luotu + vähän muita juttuja
