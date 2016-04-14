@@ -41,11 +41,15 @@ public class Lab {
     }
 
     public void takePetOut(Pet pet) {
-        pet.haveFun();
-        pet.emptyBladder();
-        pet.setSleepiness(pet.getSleepiness() - 2);
-        pet.setHunger(pet.getHunger() - 2);
-        pet.setPoints(3);
+        if (pet.getHunger() <= 1 || pet.getSleepiness() <= 1) {
+            System.out.println("");
+        } else {
+            pet.haveFun();
+            pet.emptyBladder();
+            pet.setHunger(pet.getHunger() - 2);
+            pet.setSleepiness(pet.getSleepiness() - 2);
+            pet.setPoints(3);
+        }
     }
 
     public MoodMaker getMoodMaker() {
