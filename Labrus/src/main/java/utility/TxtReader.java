@@ -5,6 +5,10 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This class reads .txt files and puts them into ArrayLists.
+ */
+
 public class TxtReader {
 
     private Scanner scanner;
@@ -17,6 +21,10 @@ public class TxtReader {
         list = new ArrayList<>();
     }
 
+    /**
+     * Gets rows from a txt file.
+     *
+     */
     public ArrayList<String> getRows() {
         while (scanner.hasNext()) {
             list.add(scanner.nextLine());

@@ -1,5 +1,9 @@
 package logic;
 
+/**
+ * This class provides different functions for pets.
+ */
+
 public class Pet {
 
     private String name;
@@ -25,6 +29,10 @@ public class Pet {
         this.bladder = 5;
     }
 
+    /**
+     * Pet eats once.
+     *
+     */
     public void eat() {
         if (hunger == 10) {
             System.out.println("");
@@ -36,6 +44,10 @@ public class Pet {
         }
     }
 
+    /**
+     * Pet drinks once.
+     *
+     */
     public void drink() {
         if (thirst == 10) {
             System.out.println("");
@@ -47,6 +59,10 @@ public class Pet {
         }
     }
 
+    /**
+     * Pet plays once.
+     *
+     */
     public void haveFun() {
         if (fun == 10) {
             System.out.println("");
@@ -58,12 +74,20 @@ public class Pet {
         }
     }
 
+    /**
+     * Pet empties bladder.
+     *
+     */
     public void emptyBladder() {
         if (bladder <= 5) {
             bladder = 10;
         }
     }
 
+    /**
+     * Pet sleeps.
+     *
+     */
     public void sleep() {
         if (sleep < 5) {
             sleep = 10;
@@ -74,6 +98,10 @@ public class Pet {
         }
     }
 
+    /**
+     * Counts the average happiness of the pet.
+     *
+     */
     public double countAvgHappiness() {
         return (hunger + thirst + fun + sleep + bladder) / (1.0 * 5);
     }

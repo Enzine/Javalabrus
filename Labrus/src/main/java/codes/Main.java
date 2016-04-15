@@ -4,6 +4,10 @@ import logic.Lab;
 import logic.Pet;
 import java.io.FileNotFoundException;
 
+/**
+ * This class is the main class and for now it is just for testing.
+ */
+
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ui;
 
 import java.io.FileNotFoundException;
@@ -12,9 +7,9 @@ import logic.Lab;
 import logic.Pet;
 
 /**
- *
- * @author sonjamak
+ * This class is the base for the games UI done with Java Swing.
  */
+
 public class FirstUI extends javax.swing.JFrame {
     private Lab lab;
 

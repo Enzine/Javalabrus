@@ -3,7 +3,7 @@
 Lemmikkisimulaatiopeli, jossa voi hoitaa hassunkurisia eläinolentoja. 
 
 ## Dokumentaatio
-[aiheen kuvaus](dokumentaatio/aiheenKuvausJaRakenne.md) | 
-[tuntikirjanpito](dokumentaatio/tuntikirjanpito.md) | 
-[pit-raportti](dokumentaatio/201604012226/index.html) | 
-[checkstyle-raportti](dokumentaatio/site/checkstyle.html)
+[Aiheen kuvaus](dokumentaatio/aiheenKuvausJaRakenne.md) | 
+[Tuntikirjanpito](dokumentaatio/tuntikirjanpito.md) | 
+[Pit-raportti](https://htmlpreview.github.io/?https://github.com/Enzine/SillyNakedFurryBellybuttonPets/blob/master/dokumentaatio/201604012226/index.html) | 
+[Checkstyle-raportti](https://htmlpreview.github.io/?https://github.com/Enzine/SillyNakedFurryBellybuttonPets/blob/master/dokumentaatio/site/checkstyle.html)

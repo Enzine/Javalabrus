@@ -7,6 +7,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class stores and manages pets.
+ */
 public class Lab {
 
     private List<Pet> pets;
@@ -28,18 +31,38 @@ public class Lab {
         return null;
     }
 
+    /**
+     * Makes a pet eat once.
+     *
+     * @param pet	the Pet you wish to feed
+     */
     public void feedPet(Pet pet) {
         pet.eat();
     }
 
+    /**
+     * Makes a pet drink once.
+     *
+     * @param pet	the Pet you wish to water
+     */
     public void giveWaterToPet(Pet pet) {
         pet.drink();
     }
 
+    /**
+     * Makes a pet play once.
+     *
+     * @param pet	the Pet you wish to play with
+     */
     public void playWithPet(Pet pet) {
         pet.haveFun();
     }
 
+    /**
+     * A pet is taken out once.
+     *
+     * @param pet	the Pet you wish to take out
+     */
     public void takePetOut(Pet pet) {
         if (pet.getHunger() <= 1 || pet.getSleepiness() <= 1) {
             System.out.println("");
@@ -56,10 +79,20 @@ public class Lab {
         return mm;
     }
 
+    /**
+     * Adds a new pet to the pet storage in lab.
+     *
+     * @param pet	the Pet you wish to add
+     */
     public void addPet(Pet pet) throws FileNotFoundException {
         pets.add(pet);
     }
 
+    /**
+     * Removes a pet from the pet storage.
+     *
+     * @param pet	the Pet you wish to remove
+     */
     public void removePet(Pet pet) {
         pets.remove(pet);
     }
@@ -68,6 +101,10 @@ public class Lab {
         return pets;
     }
 
+    /**
+     * Prints all pets.
+     * 
+     */
     public void printPets() {
         for (Pet pet : pets) {
             System.out.println(pet);

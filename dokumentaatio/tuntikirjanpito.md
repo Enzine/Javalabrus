@@ -13,3 +13,4 @@ Päivä | Tunnit | Kuvaus
 08.04.2016 | 1h | Lontoossa luokkien läpikäynti ja korjailu ym. netin pläräily projektiin liittyen
 09.04.2016 | 3h | UI-kokeiluja ja alustava ikkuna luotu + vähän muita juttuja
 10.04.2016 | 0,5h | opiskelua
+15.04.2016 | 1,5h | Javadocs ja checkstyle+pit htmlpreview

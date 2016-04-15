@@ -1,5 +1,9 @@
 package logic;
 
+/**
+ * This class mainly defines the player also known as owner.
+ */
+
 public class Owner {
 
     private String name;
