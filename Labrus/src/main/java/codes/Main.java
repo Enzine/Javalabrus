@@ -1,32 +1,24 @@
 package codes;
 
-import logic.Lab;
-import logic.Pet;
+//import java.io.BufferedWriter;
+//import java.io.File;
 import java.io.FileNotFoundException;
+//import java.io.FileWriter;
+import java.io.IOException;
+//import java.util.Scanner;
+import javax.swing.SwingUtilities;
+//import javax.swing.Timer;
+//import logic.*;
+//import utility.*;
+import ui.*;
 
 /**
  * This class is the main class and for now it is just for testing.
  */
-
 public class Main {
 
-    public static void main(String[] args) throws FileNotFoundException {
-        Lab lab = new Lab("Enzine");
-        Pet pet = new Pet("Jontte");
-        lab.getMoodMaker().recogniseMood(pet);
-
-        lab.addPet(pet);
-
-        System.out.println(pet + "\n");
-
-        lab.feedPet(pet);
-        lab.giveWaterToPet(pet);
-        lab.playWithPet(pet);
-        lab.takePetOut(pet);
-
-        lab.getMoodMaker().recogniseMood(pet);
-
-        System.out.println(pet + "\n");
-
+    public static void main(String[] args) throws FileNotFoundException, IOException, InterruptedException {
+        Ui ui = new Ui();
+        SwingUtilities.invokeLater(ui);
     }
 }

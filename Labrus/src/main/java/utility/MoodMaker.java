@@ -34,13 +34,13 @@ public class MoodMaker {
     public void recogniseMood(Pet pet) throws FileNotFoundException {
 
         if (pet.countAvgHappiness() > 9) {
-            reader = new TxtReader("greatmood.txt");
+            reader = new TxtReader("moods/greatmood.txt");
             pet.setMood(rows().get(generateRandom()));
         } else if (pet.countAvgHappiness() >= 5) {
-            reader = new TxtReader("goodmood.txt");
+            reader = new TxtReader("moods/goodmood.txt");
             pet.setMood(rows().get(generateRandom()));
         } else if (pet.countAvgHappiness() < 5) {
-            reader = new TxtReader("upsetmood.txt");
+            reader = new TxtReader("moods/upsetmood.txt");
             pet.setMood(rows().get(generateRandom()));
         }
     }

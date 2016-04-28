@@ -15,11 +15,28 @@ public class Lab {
     private List<Pet> pets;
     private Owner owner;
     private MoodMaker mm;
+    private String savePath;
 
     public Lab(String ownerName) {
         this.pets = new ArrayList<>();
         this.owner = new Owner(ownerName);
         this.mm = new MoodMaker();
+        this.savePath = null;
+    }
+    
+    public Lab() {
+        this.pets = new ArrayList<>();
+        this.owner = null;
+        this.mm = new MoodMaker();
+        this.savePath = null;
+    }
+
+    public String getSavePath() {
+        return savePath;
+    }
+
+    public void setSavePath(String savePath) {
+        this.savePath = savePath;
     }
 
     public Pet getPet(String name) {
@@ -64,15 +81,25 @@ public class Lab {
      * @param pet	the Pet you wish to take out
      */
     public void takePetOut(Pet pet) {
-        if (pet.getHunger() <= 1 || pet.getSleepiness() <= 1) {
-            System.out.println("");
-        } else {
-            pet.haveFun();
-            pet.emptyBladder();
-            pet.setHunger(pet.getHunger() - 2);
-            pet.setSleepiness(pet.getSleepiness() - 2);
-            pet.setPoints(3);
-        }
+        pet.emptyBladder();
+//        if (pet.getHunger() <= 1 || pet.getSleepiness() <= 1) {
+//            System.out.println("");
+//        } else {
+//            pet.haveFun();
+//            pet.emptyBladder();
+//            pet.setHunger(pet.getHunger() - 2);
+//            pet.setSleepiness(pet.getSleepiness() - 2);
+//            pet.setPoints(3);
+//        }
+    }
+    
+    /**
+     * Makes a pet sleep.
+     *
+     * @param pet	the Pet you wish to play with
+     */
+    public void sleepPet(Pet pet) {
+        pet.sleep();
     }
 
     public MoodMaker getMoodMaker() {

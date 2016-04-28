@@ -1,30 +1,69 @@
 package ui;
 
+//import com.sun.xml.internal.messaging.saaj.soap.ImageDataContentHandler;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import logic.Lab;
-import logic.Pet;
+import java.util.Timer;
+import java.util.TimerTask;
+import logic.*;
+import utility.MoodMaker;
+import utility.TxtReader;
 
 /**
  * This class is the base for the games UI done with Java Swing.
  */
-
 public class FirstUI extends javax.swing.JFrame {
+
     private Lab lab;
+    private Pet pet;
+    private TxtReader tx;
+    private MoodMaker mm = new MoodMaker();
+    private FileSaver fs = new FileSaver("saves/first.txt");
 
     /**
      * Creates new form FirstUI
      */
-    public FirstUI() {
+    public FirstUI() throws IOException {
         initComponents();
-        lab = new Lab("Juusa");
-        Pet pet = new Pet("Merry");
+        
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                pet.hungerDecreasesByOne();
+                pet.thirstDecreasesByOne();
+                pet.funDecreasesByOne();
+                pet.bladderDecreasesByOne();
+                pet.sleepDecreasesByOne();
+                try {
+                    mm.recogniseMood(pet);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(FirstUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                jTextAreaTraits.setText(pet.toString());
+                
+//                System.out.print("I would be called every 10 seconds");
+            }
+        }, 2000, 10000);
+
+        tx = new TxtReader("story/fullstory.txt");
+        jTextAreaStory.setText(tx.makeAStringOfRows());
+
+        lab = new Lab("Sonja");
+        pet = new Pet("Lenni");
         try {
             lab.addPet(pet);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(FirstUI.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        jTextAreaTraits.setText(pet.toString());
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(lab.getPet("Lenni").getPicturePath()));
+
+        fs.writeToASaveFile("saves/first.txt", pet.contentToASave());
     }
 
     /**
@@ -40,9 +79,7 @@ public class FirstUI extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jButtonFeed = new javax.swing.JButton();
         jButtonGiveWater = new javax.swing.JButton();
@@ -51,11 +88,13 @@ public class FirstUI extends javax.swing.JFrame {
         jLabel1Menu = new javax.swing.JLabel();
         jComboBoxPets = new javax.swing.JComboBox<>();
         jLabelChooseAPet = new javax.swing.JLabel();
+        saveButton = new javax.swing.JButton();
+        helpButton = new javax.swing.JButton();
+        sleepButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenuSave = new javax.swing.JMenu();
-        jMenuHelp = new javax.swing.JMenu();
+        jTextAreaStory = new javax.swing.JTextArea();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextAreaTraits = new javax.swing.JTextArea();
 
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
@@ -67,49 +106,29 @@ public class FirstUI extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(900, 700));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 473, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 257, Short.MAX_VALUE)
-        );
-
-        jTextArea1.setEditable(false);
-        jTextArea1.setBackground(new java.awt.Color(63, 58, 54));
-        jTextArea1.setColumns(20);
-        jTextArea1.setForeground(new java.awt.Color(253, 251, 251));
-        jTextArea1.setRows(5);
-        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
+        jLabel2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextArea1KeyPressed(evt);
+                jLabel2KeyPressed(evt);
             }
         });
-        jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
-                .addContainerGap())
+                .addGap(161, 161, 161)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(112, 112, 112)
+                .addComponent(jLabel2)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -151,42 +170,79 @@ public class FirstUI extends javax.swing.JFrame {
 
         jLabelChooseAPet.setText("Choose a pet:");
 
+        saveButton.setText("Save");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
+
+        helpButton.setText("Help");
+        helpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpButtonActionPerformed(evt);
+            }
+        });
+
+        sleepButton.setText("Sleep");
+        sleepButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sleepButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButtonFeed, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonGiveWater)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonPlayWith, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonTakeOut, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
-                .addGap(11, 11, 11))
-            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButtonFeed, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonGiveWater)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonPlayWith, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(146, 146, 146)
                         .addComponent(jLabel1Menu, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
+                        .addContainerGap()
                         .addComponent(jLabelChooseAPet)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jComboBoxPets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(helpButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(saveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButtonTakeOut, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                        .addGap(11, 11, 11))))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(163, 163, 163)
+                .addComponent(sleepButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1Menu, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1Menu, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(helpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelChooseAPet)
                     .addComponent(jComboBoxPets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGap(22, 22, 22)
+                .addComponent(sleepButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonFeed)
                     .addComponent(jButtonGiveWater)
@@ -195,33 +251,26 @@ public class FirstUI extends javax.swing.JFrame {
                 .addGap(16, 16, 16))
         );
 
-        jTextArea2.setBackground(new java.awt.Color(254, 254, 254));
-        jTextArea2.setColumns(20);
-        jTextArea2.setForeground(new java.awt.Color(1, 1, 1));
-        jTextArea2.setRows(5);
-        jTextArea2.setText("\t\n\n\tStory will be told here\n\t\tI suppose... :,,D\n\n\n\t          trololololooooo\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n JOU JOU JOU\n\n\n\nscrollaa\nscrollaa\nscrollaa\nscrollaa\nscrollaa\nscrollaa\nscrollaa\nscrollaa\n\nMoi! :D");
-        jTextArea2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTextArea2.setDisabledTextColor(new java.awt.Color(9, 5, 1));
-        jTextArea2.setEnabled(false);
-        jScrollPane2.setViewportView(jTextArea2);
+        jTextAreaStory.setBackground(new java.awt.Color(254, 254, 254));
+        jTextAreaStory.setColumns(20);
+        jTextAreaStory.setForeground(new java.awt.Color(1, 1, 1));
+        jTextAreaStory.setRows(5);
+        jTextAreaStory.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTextAreaStory.setDisabledTextColor(new java.awt.Color(9, 5, 1));
+        jTextAreaStory.setEnabled(false);
+        jScrollPane2.setViewportView(jTextAreaStory);
 
-        jMenuSave.setText("Save");
-        jMenuSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuSaveActionPerformed(evt);
+        jTextAreaTraits.setEditable(false);
+        jTextAreaTraits.setBackground(new java.awt.Color(63, 58, 54));
+        jTextAreaTraits.setColumns(20);
+        jTextAreaTraits.setForeground(new java.awt.Color(253, 251, 251));
+        jTextAreaTraits.setRows(5);
+        jTextAreaTraits.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextAreaTraitsKeyPressed(evt);
             }
         });
-        jMenuBar1.add(jMenuSave);
-
-        jMenuHelp.setText("Help");
-        jMenuHelp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuHelpActionPerformed(evt);
-            }
-        });
-        jMenuBar1.add(jMenuHelp);
-
-        setJMenuBar(jMenuBar1);
+        jScrollPane1.setViewportView(jTextAreaTraits);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -232,51 +281,74 @@ public class FirstUI extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane2)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPlayWithActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayWithActionPerformed
-        lab.getPet("Merry").haveFun();
-        jTextArea1.setText(lab.getPet("Merry").toString());
+        pet.haveFun();
+        jTextAreaTraits.setText(pet.toString());
     }//GEN-LAST:event_jButtonPlayWithActionPerformed
 
-    private void jMenuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSaveActionPerformed
-
-    }//GEN-LAST:event_jMenuSaveActionPerformed
-
-    private void jMenuHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuHelpActionPerformed
-    
-    }//GEN-LAST:event_jMenuHelpActionPerformed
-
     private void jButtonFeedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFeedActionPerformed
-        lab.feedPet(lab.getPet("Merry"));
-        jTextArea1.setText(lab.getPet("Merry").toString());
+        pet.eat();
+        jTextAreaTraits.setText(pet.toString());
     }//GEN-LAST:event_jButtonFeedActionPerformed
 
-    private void jTextArea1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyPressed
-        jTextArea1.setText(lab.getPet("Merry").toString());
-    }//GEN-LAST:event_jTextArea1KeyPressed
+    private void jTextAreaTraitsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextAreaTraitsKeyPressed
+
+    }//GEN-LAST:event_jTextAreaTraitsKeyPressed
 
     private void jButtonGiveWaterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGiveWaterActionPerformed
-        lab.giveWaterToPet(lab.getPet("Merry"));
-        jTextArea1.setText(lab.getPet("Merry").toString());
+        pet.drink();
+        jTextAreaTraits.setText(pet.toString());
     }//GEN-LAST:event_jButtonGiveWaterActionPerformed
 
     private void jButtonTakeOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTakeOutActionPerformed
-        lab.takePetOut(lab.getPet("Merry"));
-        jTextArea1.setText(lab.getPet("Merry").toString());
+        lab.takePetOut(pet);
+        jTextAreaTraits.setText(pet.toString());
     }//GEN-LAST:event_jButtonTakeOutActionPerformed
+
+    private void jLabel2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel2KeyPressed
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource(lab.getPet("Merry").getPicturePath())));
+    }//GEN-LAST:event_jLabel2KeyPressed
+
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        try {
+            fs.createANewSaveFile("first", lab);
+        } catch (IOException ex) {
+            Logger.getLogger(FirstUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            fs.writeToASaveFile("saves/first.txt", pet.contentToASave());
+        } catch (IOException ex) {
+            Logger.getLogger(FirstUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_saveButtonActionPerformed
+
+    private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_helpButtonActionPerformed
+
+    private void sleepButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sleepButtonActionPerformed
+        lab.sleepPet(pet);
+        jTextAreaTraits.setText(pet.toString());
+    }//GEN-LAST:event_sleepButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -308,12 +380,17 @@ public class FirstUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FirstUI().setVisible(true);
+                try {
+                    new FirstUI().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(FirstUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton helpButton;
     private javax.swing.JButton jButtonFeed;
     private javax.swing.JButton jButtonGiveWater;
     private javax.swing.JButton jButtonPlayWith;
@@ -321,18 +398,17 @@ public class FirstUI extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JComboBox<String> jComboBoxPets;
     private javax.swing.JLabel jLabel1Menu;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelChooseAPet;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenu jMenuHelp;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenu jMenuSave;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextArea jTextAreaStory;
+    private javax.swing.JTextArea jTextAreaTraits;
+    private javax.swing.JButton saveButton;
+    private javax.swing.JButton sleepButton;
     // End of variables declaration//GEN-END:variables
 }

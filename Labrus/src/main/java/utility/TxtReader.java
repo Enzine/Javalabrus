@@ -31,4 +31,44 @@ public class TxtReader {
         }
         return list;
     }
+    
+    public String makeAStringOfRows() {
+        getRows();
+        String s = "";
+        for (String string : list) {
+            s += string + "\n";
+        }
+        return s;
+    }
+    
+    public void printRows() {
+        getRows();
+        for (String row : list) {
+            System.out.println(row);
+        }
+    }
+    
+    public void printRowsSlow() throws InterruptedException {
+        getRows();
+        for (String row : list) {
+            System.out.println(row);
+            Thread.sleep(1000);
+        }
+    }
+    
+    public void printRowsSlower() throws InterruptedException {
+        getRows();
+        for (String row : list) {
+            System.out.println(row);
+            Thread.sleep(3000);
+        }
+    }
+    
+    public void printRowsSlowest() throws InterruptedException {
+        getRows();
+        for (String row : list) {
+            System.out.println(row);
+            Thread.sleep(4500);
+        }
+    }
 }

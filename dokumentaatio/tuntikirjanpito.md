@@ -14,3 +14,7 @@ Päivä | Tunnit | Kuvaus
 09.04.2016 | 3h | UI-kokeiluja ja alustava ikkuna luotu + vähän muita juttuja
 10.04.2016 | 0,5h | opiskelua
 15.04.2016 | 1,5h | Javadocs ja checkstyle+pit htmlpreview
+16.04.2016 | 1h | sain kuvan toimimaan vihdoin ui:ssä
+23.04.2016 | 1,5h | Tarinan tekoa ja päätöksiä suunnan suhteen
+25.04.2016 | 4h | Logiikan kanssa tappelua
+28.04.2016 | 2h | UI:n ja koodin yhteensovittelua

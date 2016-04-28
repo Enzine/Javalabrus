@@ -1,9 +1,10 @@
 package logic;
 
+import java.util.Random;
+
 /**
  * This class provides different functions for pets.
  */
-
 public class Pet {
 
     private String name;
@@ -17,6 +18,8 @@ public class Pet {
     private int sleep;
     private int bladder;
 
+    private String picturePath;
+
     public Pet(String name) {
         this.name = name;
         this.age = "baby";
@@ -27,6 +30,16 @@ public class Pet {
         this.fun = 5;
         this.sleep = 5;
         this.bladder = 5;
+        picturePath = "pets/pet007.png";
+//        picturePath = "pets/pet00" + (new Random().nextInt(6) + 1) + ".png";
+    }
+
+    public String getPicturePath() {
+        return picturePath;
+    }
+
+    public void setPicturePath(String picturePath) {
+        this.picturePath = picturePath;
     }
 
     /**
@@ -35,7 +48,7 @@ public class Pet {
      */
     public void eat() {
         if (hunger == 10) {
-            System.out.println("");
+            System.out.print("");
         } else if (hunger == 9) {
             hunger++;
         } else {
@@ -45,17 +58,77 @@ public class Pet {
     }
 
     /**
+     * Decreases hunger by one if possible.
+     *
+     */
+    public void hungerDecreasesByOne() {
+        if (hunger == 0) {
+            System.out.print("");
+        } else {
+            hunger--;
+        }
+    }
+
+    /**
      * Pet drinks once.
      *
      */
     public void drink() {
         if (thirst == 10) {
-            System.out.println("");
+            System.out.print("");
         } else if (thirst == 9) {
             thirst++;
         } else {
             thirst += 2;
             setPoints(1);
+        }
+    }
+
+    /**
+     * Decreases thirst by one if possible.
+     *
+     */
+    public void thirstDecreasesByOne() {
+        if (thirst == 0) {
+            System.out.print("");
+        } else {
+            thirst--;
+        }
+    }
+
+    /**
+     * Decreases sleep by one if possible.
+     *
+     */
+    public void sleepDecreasesByOne() {
+        if (sleep == 0) {
+            System.out.print("");
+        } else {
+            sleep--;
+        }
+    }
+
+    /**
+     * Decreases sleep by one if possible.
+     *
+     */
+    public void bladderDecreasesByOne() {
+        if (bladder == 0) {
+            System.out.print("");
+        } else {
+            bladder--;
+        }
+    }
+
+    /**
+     * Decreases fun by one if possible.
+     *
+     */
+    public void funDecreasesByOne() {
+        if (fun == 0) {
+            System.out.print("");
+        } else {
+            fun--;
         }
     }
 
@@ -69,8 +142,8 @@ public class Pet {
         } else if (fun == 9) {
             fun++;
         } else {
-            this.fun += 2;
-            setPoints(2);
+            fun += 2;
+            setPoints(1);
         }
     }
 
@@ -81,6 +154,7 @@ public class Pet {
     public void emptyBladder() {
         if (bladder <= 5) {
             bladder = 10;
+            setPoints(1);
         }
     }
 
@@ -89,12 +163,12 @@ public class Pet {
      *
      */
     public void sleep() {
-        if (sleep < 5) {
+        if (sleep <= 5) {
             sleep = 10;
-            bladder -= 2;
-            hunger -= 2;
-            thirst -= 2;
-            fun++;
+//            bladder -= 2;
+//            hunger -= 2;
+//            thirst -= 2;
+//            fun++;
         }
     }
 
@@ -106,10 +180,18 @@ public class Pet {
         return (hunger + thirst + fun + sleep + bladder) / (1.0 * 5);
     }
 
+    /**
+     * Returns the content wanted for a save file.
+     *
+     */
+    public String contentToASave() {
+        return name + "\n" + age + "\n" + points + "\n" + mood + "\n" + hunger + "\n" + thirst + "\n" + fun + "\n" + sleep + "\n" + bladder;
+    }
+
     @Override
     public String toString() {
         return "Name: " + name + "\nAge: " + age + "\nPoints: " + points + "\nMood: " + mood
-                + "\n\nHungry/Full: " + hunger + "/10\nThirsty/Full: " + thirst + "/10\nBored/Fun: " + fun + "/10\nTired/Awake: " + sleep + "/10\nBladderFull/Empty: " + bladder + "/10";
+                + "\n\nHungry/Full: " + hunger + "\nThirsty/Full: " + thirst + "\nBored/Fun: " + fun + "\nTired/Awake: " + sleep + "\nBladder full/empty: " + bladder;
     }
 
     public String getName() {
