@@ -8,30 +8,22 @@
 <div id="overview"><a href="../../apidocs/codes/Main.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> codes;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> java.io.FileNotFoundException;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../codes/Main.html">Main</a> {
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>       <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> main(String[] args) <strong class="jxr_keyword">throws</strong> FileNotFoundException {
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>           <a href="../codes/Lab.html">Lab</a> lab = <strong class="jxr_keyword">new</strong> <a href="../codes/Lab.html">Lab</a>(<span class="jxr_string">"Enzine"</span>);
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>           <a href="../codes/Pet.html">Pet</a> pet = <strong class="jxr_keyword">new</strong> <a href="../codes/Pet.html">Pet</a>(<span class="jxr_string">"Jontte"</span>);
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>          lab.getMoodMaker().recogniseMood(pet);
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>          lab.addPet(pet);
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>          System.out.println(pet + <span class="jxr_string">"\n"</span>);
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>          lab.feedPet(pet);
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>          lab.giveWaterToPet(pet);
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>          lab.playWithPet(pet);
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>          lab.takePetOut(pet);
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>          lab.getMoodMaker().recogniseMood(pet);
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>          System.out.println(pet + <span class="jxr_string">"\n"</span>);
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>      }
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  }
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment">//import java.io.BufferedWriter;</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment">//import java.io.File;</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> java.io.FileNotFoundException;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_comment">//import java.io.FileWriter;</em>
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.io.IOException;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_comment">//import java.util.Scanner;</em>
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> * This class is the main class and for now it is just for testing.</em>
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../codes/Main.html">Main</a> {
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> main(String[] args) <strong class="jxr_keyword">throws</strong> FileNotFoundException, IOException, InterruptedException {
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>      }
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2016. All rights reserved.</div>
