@@ -13,6 +13,15 @@ Käyttöliittymä koostuu neljästä paneelista. Oikealla on kuva hoidokista sek
 
 **Käyttäjät:** Pelaaja.
 
-- lemmikkien hoitoon ja hallintaan liittyvät toimenpiteet
+*lemmikin
+	- nimeäminen
+	- ruokinta
+	- juottaminen
+	- leikittäminen
+	- pissattaminen
+	- nukuttaminen
+*tallentaminen
+	- tallennuksen nimeäminen
+*tallennuksen lataus
 
 ![alustava luokkakaavio](/dokumentaatio/luokkakaavio.png)
