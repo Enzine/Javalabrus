@@ -13,16 +13,17 @@ Käyttöliittymä koostuu neljästä paneelista. Oikealla on kuva hoidokista sek
 
 **Käyttäjät:** Pelaaja.
 
-**_lemmikin_**  
-	- nimeäminen  
-	- ruokinta  
-	- juottaminen  
-	- leikittäminen  
-	- pissattaminen  
-	- nukuttaminen  
-      
-**_tallentaminen_**  
-	- tallennuksen nimeäminen  
-	- tallennuksen lataus 
+
+**_lemmikin_** | **_tallentaminen_**
+---------- | ------------
+- nimeäminen  
+- ruokinta  
+- juottaminen  
+- leikittäminen  
+- pissattaminen  
+- nukuttaminen  
+ | 
+- tallennuksen nimeäminen  
+- tallennuksen lataus 
 
 ![alustava luokkakaavio](/dokumentaatio/luokkakaavio.png)
