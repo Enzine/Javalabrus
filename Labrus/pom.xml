@@ -36,10 +36,12 @@
                 <version>1.1.8</version>
                 <configuration>
                     <targetClasses>
-                        <param>codes.*</param>
+                        <param>logic.*</param>
+                        <param>utility.*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>codes.*</param>
+                        <param>logic.*</param>
+                        <param>utility.*</param>
                     </targetTests>
                 </configuration>
             </plugin>
