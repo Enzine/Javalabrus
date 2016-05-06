@@ -13,9 +13,9 @@ Käyttöliittymä koostuu neljästä paneelista. Oikealla on kuva hoidokista sek
 
 **Käyttäjät:** Pelaaja.
 
-*lemmikin
-	- nimeäminen
-	- ruokinta
+*lemmikin  \n
+	- nimeäminen  \n
+	- ruokinta  \n
 	- juottaminen
 	- leikittäminen
 	- pissattaminen
