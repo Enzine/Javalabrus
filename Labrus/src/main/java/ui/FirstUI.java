@@ -7,6 +7,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import logic.*;
 import utility.MoodMaker;
 import utility.TxtReader;
@@ -20,14 +22,15 @@ public class FirstUI extends javax.swing.JFrame {
     private Pet pet;
     private TxtReader tx;
     private MoodMaker mm = new MoodMaker();
-    private FileSaver fs = new FileSaver("saves/first.txt");
+    private SaveLoader sl = new SaveLoader();
+    private Saver fs = new Saver();
 
     /**
      * Creates new form FirstUI
      */
     public FirstUI() throws IOException {
         initComponents();
-        
+
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -43,16 +46,12 @@ public class FirstUI extends javax.swing.JFrame {
                     Logger.getLogger(FirstUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 jTextAreaTraits.setText(pet.toString());
-                
+
 //                System.out.print("I would be called every 10 seconds");
             }
         }, 2000, 10000);
-
-        tx = new TxtReader("story/fullstory.txt");
-        jTextAreaStory.setText(tx.makeAStringOfRows());
-
-        lab = new Lab("Sonja");
-        pet = new Pet("Lenni");
+        lab = new Lab();
+        pet = new Pet("nemo");
         try {
             lab.addPet(pet);
         } catch (FileNotFoundException ex) {
@@ -61,9 +60,10 @@ public class FirstUI extends javax.swing.JFrame {
 
         jTextAreaTraits.setText(pet.toString());
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(lab.getPet("Lenni").getPicturePath()));
-
-        fs.writeToASaveFile("saves/first.txt", pet.contentToASave());
+        jLabel2.setIcon(new javax.swing.ImageIcon(pet.getPicturePath()));
+        if (!sl.saveFileExists()) {
+            fs.createANewSaveFile("first", "");
+        }
     }
 
     /**
@@ -86,11 +86,13 @@ public class FirstUI extends javax.swing.JFrame {
         jButtonPlayWith = new javax.swing.JButton();
         jButtonTakeOut = new javax.swing.JButton();
         jLabel1Menu = new javax.swing.JLabel();
-        jComboBoxPets = new javax.swing.JComboBox<>();
-        jLabelChooseAPet = new javax.swing.JLabel();
         saveButton = new javax.swing.JButton();
         helpButton = new javax.swing.JButton();
+        exitButton = new javax.swing.JButton();
         sleepButton = new javax.swing.JButton();
+        petNameTextField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        loadButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaStory = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -103,7 +105,7 @@ public class FirstUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Silly Naked Furry Bellybutton Pets<3");
-        setSize(new java.awt.Dimension(900, 700));
+        setSize(new java.awt.Dimension(1600, 1000));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -121,7 +123,7 @@ public class FirstUI extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(161, 161, 161)
                 .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(344, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,23 +166,27 @@ public class FirstUI extends javax.swing.JFrame {
         jLabel1Menu.setFont(new java.awt.Font("URW Bookman L", 1, 15)); // NOI18N
         jLabel1Menu.setText("MENU");
 
-        jComboBoxPets.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pet 1", "Pet 2" }));
-        jComboBoxPets.setToolTipText("Select pet");
-        jComboBoxPets.setName("Choose pet:"); // NOI18N
-
-        jLabelChooseAPet.setText("Choose a pet:");
-
-        saveButton.setText("Save");
+        saveButton.setFont(new java.awt.Font("Lato Black", 0, 15)); // NOI18N
+        saveButton.setText("S A V E");
         saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveButtonActionPerformed(evt);
             }
         });
 
-        helpButton.setText("Help");
+        helpButton.setFont(new java.awt.Font("Lato Black", 0, 15)); // NOI18N
+        helpButton.setText("H E L P");
         helpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 helpButtonActionPerformed(evt);
+            }
+        });
+
+        exitButton.setFont(new java.awt.Font("Lato Black", 0, 15)); // NOI18N
+        exitButton.setText("E X I T");
+        exitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitButtonActionPerformed(evt);
             }
         });
 
@@ -191,64 +197,83 @@ public class FirstUI extends javax.swing.JFrame {
             }
         });
 
+        petNameTextField.setFont(new java.awt.Font("TlwgTypewriter", 1, 15)); // NOI18N
+        petNameTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                petNameTextFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Serif", 3, 15)); // NOI18N
+        jLabel1.setText("Name your pet: ");
+
+        loadButton.setFont(new java.awt.Font("Lato Black", 0, 15)); // NOI18N
+        loadButton.setText("L O A D ");
+        loadButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButtonFeed, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonGiveWater)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonPlayWith, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(146, 146, 146)
+                        .addGap(47, 47, 47)
                         .addComponent(jLabel1Menu, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabelChooseAPet)
+                        .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBoxPets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(helpButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                        .addComponent(loadButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(helpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(saveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButtonTakeOut, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
-                        .addGap(11, 11, 11))))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(163, 163, 163)
-                .addComponent(sleepButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(petNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(jButtonFeed, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonGiveWater)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonPlayWith, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonTakeOut, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(sleepButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel1Menu, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1Menu, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(helpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelChooseAPet)
-                    .addComponent(jComboBoxPets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addComponent(sleepButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(petNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonFeed)
                     .addComponent(jButtonGiveWater)
                     .addComponent(jButtonPlayWith)
-                    .addComponent(jButtonTakeOut))
-                .addGap(16, 16, 16))
+                    .addComponent(jButtonTakeOut)
+                    .addComponent(sleepButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(helpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(loadButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20))
         );
 
         jTextAreaStory.setBackground(new java.awt.Color(254, 254, 254));
@@ -265,11 +290,6 @@ public class FirstUI extends javax.swing.JFrame {
         jTextAreaTraits.setColumns(20);
         jTextAreaTraits.setForeground(new java.awt.Color(253, 251, 251));
         jTextAreaTraits.setRows(5);
-        jTextAreaTraits.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextAreaTraitsKeyPressed(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTextAreaTraits);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -277,23 +297,27 @@ public class FirstUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 769, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 591, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(148, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -310,10 +334,6 @@ public class FirstUI extends javax.swing.JFrame {
         jTextAreaTraits.setText(pet.toString());
     }//GEN-LAST:event_jButtonFeedActionPerformed
 
-    private void jTextAreaTraitsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextAreaTraitsKeyPressed
-
-    }//GEN-LAST:event_jTextAreaTraitsKeyPressed
-
     private void jButtonGiveWaterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGiveWaterActionPerformed
         pet.drink();
         jTextAreaTraits.setText(pet.toString());
@@ -325,30 +345,57 @@ public class FirstUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonTakeOutActionPerformed
 
     private void jLabel2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel2KeyPressed
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource(lab.getPet("Merry").getPicturePath())));
     }//GEN-LAST:event_jLabel2KeyPressed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        JFrame parent = new JFrame();
+        String name = JOptionPane.showInputDialog(parent, "Name your save.", null);
+
         try {
-            fs.createANewSaveFile("first", lab);
-        } catch (IOException ex) {
-            Logger.getLogger(FirstUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            fs.writeToASaveFile("saves/first.txt", pet.contentToASave());
+            if (name.isEmpty()) {
+                fs.createANewSaveFile("first", pet.contentToASave());
+            } else {
+                fs.createANewSaveFile(name, pet.contentToASave());
+            }
         } catch (IOException ex) {
             Logger.getLogger(FirstUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
-        // TODO add your handling code here:
+        try {
+            tx = new TxtReader("story/help.txt");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FirstUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jTextAreaStory.setText(tx.makeAStringOfRows());
     }//GEN-LAST:event_helpButtonActionPerformed
 
     private void sleepButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sleepButtonActionPerformed
         lab.sleepPet(pet);
         jTextAreaTraits.setText(pet.toString());
     }//GEN-LAST:event_sleepButtonActionPerformed
+
+    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_exitButtonActionPerformed
+
+    private void petNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_petNameTextFieldActionPerformed
+        pet.setName(petNameTextField.getText());
+        jTextAreaTraits.setText(pet.toString());
+    }//GEN-LAST:event_petNameTextFieldActionPerformed
+
+    private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButtonActionPerformed
+        JFrame parent = new JFrame();
+        String name = JOptionPane.showInputDialog(parent, "Which save do you wish to load.", null);
+
+        if (!name.isEmpty()) {
+            sl.setSaveFile(name);
+        }
+        pet.initializeStats(sl.loadSaveFile());
+        jTextAreaTraits.setText(pet.toString());
+        jLabel2.setIcon(new javax.swing.ImageIcon(pet.getPicturePath()));
+    }//GEN-LAST:event_loadButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -364,16 +411,24 @@ public class FirstUI extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FirstUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FirstUI.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FirstUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FirstUI.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FirstUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FirstUI.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FirstUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FirstUI.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -382,24 +437,26 @@ public class FirstUI extends javax.swing.JFrame {
             public void run() {
                 try {
                     new FirstUI().setVisible(true);
+
                 } catch (IOException ex) {
-                    Logger.getLogger(FirstUI.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(FirstUI.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton exitButton;
     private javax.swing.JButton helpButton;
     private javax.swing.JButton jButtonFeed;
     private javax.swing.JButton jButtonGiveWater;
     private javax.swing.JButton jButtonPlayWith;
     private javax.swing.JButton jButtonTakeOut;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
-    private javax.swing.JComboBox<String> jComboBoxPets;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel1Menu;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabelChooseAPet;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -408,6 +465,8 @@ public class FirstUI extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextAreaStory;
     private javax.swing.JTextArea jTextAreaTraits;
+    private javax.swing.JButton loadButton;
+    private javax.swing.JTextField petNameTextField;
     private javax.swing.JButton saveButton;
     private javax.swing.JButton sleepButton;
     // End of variables declaration//GEN-END:variables

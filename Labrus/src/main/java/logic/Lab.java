@@ -1,8 +1,5 @@
 package logic;
 
-import utility.MoodMaker;
-import logic.Owner;
-import logic.Pet;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,32 +10,17 @@ import java.util.List;
 public class Lab {
 
     private List<Pet> pets;
-    private Owner owner;
-    private MoodMaker mm;
-    private String savePath;
 
-    public Lab(String ownerName) {
-        this.pets = new ArrayList<>();
-        this.owner = new Owner(ownerName);
-        this.mm = new MoodMaker();
-        this.savePath = null;
-    }
-    
     public Lab() {
         this.pets = new ArrayList<>();
-        this.owner = null;
-        this.mm = new MoodMaker();
-        this.savePath = null;
     }
 
-    public String getSavePath() {
-        return savePath;
-    }
-
-    public void setSavePath(String savePath) {
-        this.savePath = savePath;
-    }
-
+    /**
+     * Returns the wanted pet if found.
+     *
+     * @param name Name of the pet you wish to return
+     * @return Pet/null
+     */
     public Pet getPet(String name) {
         for (Pet pet : pets) {
             if (name.equals(pet.getName())) {
@@ -82,32 +64,19 @@ public class Lab {
      */
     public void takePetOut(Pet pet) {
         pet.emptyBladder();
-//        if (pet.getHunger() <= 1 || pet.getSleepiness() <= 1) {
-//            System.out.println("");
-//        } else {
-//            pet.haveFun();
-//            pet.emptyBladder();
-//            pet.setHunger(pet.getHunger() - 2);
-//            pet.setSleepiness(pet.getSleepiness() - 2);
-//            pet.setPoints(3);
-//        }
     }
-    
+
     /**
      * Makes a pet sleep.
      *
-     * @param pet	the Pet you wish to play with
+     * @param pet	the Pet you wish to sleep
      */
     public void sleepPet(Pet pet) {
         pet.sleep();
     }
 
-    public MoodMaker getMoodMaker() {
-        return mm;
-    }
-
     /**
-     * Adds a new pet to the pet storage in lab.
+     * Adds a new pet to the pet storage in the lab.
      *
      * @param pet	the Pet you wish to add
      */
@@ -127,23 +96,4 @@ public class Lab {
     public List<Pet> getPets() {
         return pets;
     }
-
-    /**
-     * Prints all pets.
-     * 
-     */
-    public void printPets() {
-        for (Pet pet : pets) {
-            System.out.println(pet);
-        }
-    }
-
-    public Owner getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Owner owner) {
-        this.owner = owner;
-    }
-
 }

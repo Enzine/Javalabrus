@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * This class reads .txt files and puts them into ArrayLists.
+ * This class reads txt files and creates Strings from them.
  */
 
 public class TxtReader {
@@ -32,6 +32,10 @@ public class TxtReader {
         return list;
     }
     
+    /**
+     * Creates a String of the rows gotten from the txt file.
+     * @return      String
+     */
     public String makeAStringOfRows() {
         getRows();
         String s = "";
@@ -39,36 +43,5 @@ public class TxtReader {
             s += string + "\n";
         }
         return s;
-    }
-    
-    public void printRows() {
-        getRows();
-        for (String row : list) {
-            System.out.println(row);
-        }
-    }
-    
-    public void printRowsSlow() throws InterruptedException {
-        getRows();
-        for (String row : list) {
-            System.out.println(row);
-            Thread.sleep(1000);
-        }
-    }
-    
-    public void printRowsSlower() throws InterruptedException {
-        getRows();
-        for (String row : list) {
-            System.out.println(row);
-            Thread.sleep(3000);
-        }
-    }
-    
-    public void printRowsSlowest() throws InterruptedException {
-        getRows();
-        for (String row : list) {
-            System.out.println(row);
-            Thread.sleep(4500);
-        }
     }
 }

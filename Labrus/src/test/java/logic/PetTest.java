@@ -1,11 +1,6 @@
 package logic;
 
-
-import logic.Pet;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -19,6 +14,47 @@ public class PetTest {
     @Before
     public void setUp() {
         pet = new Pet("Keimo");
+    }
+
+    @Test
+    public void addPointsAdds1PointToPoints() {
+        pet.addPoints();
+        assertEquals(1, pet.getPoints());
+    }
+
+    @Test
+    public void addPointsChangesAgeToChildWhenPointsIs100() {
+        pet.setPoints(99);
+        pet.addPoints();
+        assertEquals("child", pet.getAge());
+    }
+
+    @Test
+    public void addPointsChangesAgeToTeenWhenPointsIs200() {
+        pet.setPoints(199);
+        pet.addPoints();
+        assertEquals("teenager", pet.getAge());
+    }
+
+    @Test
+    public void addPointsChangesAgeToYoungAdultWhenPointsIs300() {
+        pet.setPoints(299);
+        pet.addPoints();
+        assertEquals("young adult", pet.getAge());
+    }
+
+    @Test
+    public void addPointsChangesAgeToAdultWhenPointsIs400() {
+        pet.setPoints(399);
+        pet.addPoints();
+        assertEquals("adult", pet.getAge());
+    }
+
+    @Test
+    public void addPointsChangesAgeToElderWhenPointsIs500() {
+        pet.setPoints(499);
+        pet.addPoints();
+        assertEquals("elderly", pet.getAge());
     }
 
     @Test
@@ -64,7 +100,7 @@ public class PetTest {
         assertEquals(10, pet.getThirst());
         assertEquals(1, pet.getPoints());
     }
-    
+
     @Test
     public void haveFunDoesntDoAnythingIfHaveFunIs10() {
         pet.setFun(10);
@@ -80,50 +116,91 @@ public class PetTest {
     }
 
     @Test
-    public void haveFunAdds2ToHaveFunIfHaveFunIsLessThan9AndGives2Points() {
+    public void haveFunAdds2ToHaveFunIfHaveFunIsLessThan9AndGives1Point() {
         pet.setFun(8);
         pet.haveFun();
         assertEquals(10, pet.getFun());
-        assertEquals(2, pet.getPoints());
+        assertEquals(1, pet.getPoints());
     }
-    
+
     @Test
-    public void emptyBladderDoesntDoAnythingIfItIsMoreThan5() {
+    public void emptyBladderDoesntDoAnythingIfBladderIsMoreThan5() {
         pet.setBladder(6);
         pet.emptyBladder();
         assertEquals(6, pet.getBladder());
     }
 
     @Test
-    public void emptyBladderSetsBladderTo10WhenItIs5OrLess() {
+    public void emptyBladderSetsBladderTo10WhenBladderIs5OrLess() {
         pet.setBladder(5);
         pet.emptyBladder();
         assertEquals(10, pet.getBladder());
     }
-    
+
     @Test
-    public void sleepDoesntDoAnythingWhenItIsMoreThan4() {
-        pet.setSleepiness(5);
+    public void sleepDoesntDoAnythingWhenItIsMoreThan5() {
+        pet.setSleep(6);
         pet.sleep();
-        assertEquals(5, pet.getSleepiness());
-    }
-    
-    @Test
-    public void sleepWorksCorrectlyWhenItIsLess5() {
-        pet.setBladder(4);
-        pet.emptyBladder();
-        assertEquals(10, pet.getBladder());
-    }
-    
-    @Test
-    public void countAvgHappinessWorksCorrectly() {
-        int i = 0;
-        if (pet.countAvgHappiness() == 5.0) {
-            i = 0;
-        } else {
-            i = 1;
-        }
-        assertEquals(0, i);
+        assertEquals(6, pet.getSleep());
     }
 
+    @Test
+    public void sleepSetsSleepTo10WhenSleepIs5OrLess() {
+        pet.setSleep(5);
+        pet.sleep();
+        assertEquals(10, pet.getSleep());
+    }
+
+    @Test
+    public void sleepAdds2ToFunAndReducesOthersBy2WhenSleepIs5OrLess() {
+        pet.setSleep(5);
+        pet.sleep();
+        assertEquals(3, pet.getHunger());
+        assertEquals(3, pet.getThirst());
+        assertEquals(3, pet.getBladder());
+        assertEquals(7, pet.getFun());
+    }
+
+    @Test
+    public void countAvgHappinessWorksCorrectly() {
+        pet.setBladder(2);
+        pet.setHunger(9);
+        assertEquals(5.2, pet.countAvgHappiness(), 0.001);
+    }
+
+    @Test
+    public void hungerDecreasesByOneWorksCorrectly() {
+        pet.hungerDecreasesByOne();
+        assertEquals(4, pet.getHunger());
+    }
+
+    @Test
+    public void thirstDecreasesByOneWorksCorrectly() {
+        pet.thirstDecreasesByOne();
+        assertEquals(4, pet.getThirst());
+    }
+
+    @Test
+    public void funDecreasesByOneWorksCorrectly() {
+        pet.funDecreasesByOne();
+        assertEquals(4, pet.getFun());
+    }
+
+    @Test
+    public void bladderDecreasesByOneWorksCorrectly() {
+        pet.bladderDecreasesByOne();
+        assertEquals(4, pet.getBladder());
+    }
+
+    @Test
+    public void sleepDecreasesByOneWorksCorrectly() {
+        pet.sleepDecreasesByOne();
+        assertEquals(4, pet.getSleep());
+    }
+    
+    @Test
+    public void contentToASaveWorksCorrectly() {
+        assertEquals("Keimo\nbaby\n0\nWondering who you are...\n5\n5\n5\n5\n5\n" + pet.getPicturePath(), pet.contentToASave());
+    }
+    
 }

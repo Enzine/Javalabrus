@@ -4,22 +4,33 @@ import logic.Pet;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class generates random Strings (moods) from .txt files.
  */
-
 public class MoodMaker {
 
     private TxtReader reader;
     private Random random = new Random();
 
+    /**
+     * A getter for reader's rows.
+     *
+     * @return List<String> rows from the txt file
+     */
     private List<String> rows() {
         return reader.getRows();
     }
 
+    public void setTxtReader(TxtReader txtR) {
+        reader = txtR;
+    }
+
     /**
-     * Generates a random integer between 0 and the amount of rows in the file read with TxtReader (-1).
+     * Generates a random integer between 0 and the amount of rows in the file
+     * read with TxtReader -1.
      *
      */
     public int generateRandom() {

@@ -1,9 +1,10 @@
 package logic;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * This class provides different functions for pets.
+ * This class provides different functions for the pet.
  */
 public class Pet {
 
@@ -30,57 +31,64 @@ public class Pet {
         this.fun = 5;
         this.sleep = 5;
         this.bladder = 5;
-        picturePath = "pets/pet007.png";
-//        picturePath = "pets/pet00" + (new Random().nextInt(6) + 1) + ".png";
-    }
+        picturePath = "pets/pet00" + (new Random().nextInt(10)) + ".png";
 
-    public String getPicturePath() {
-        return picturePath;
-    }
-
-    public void setPicturePath(String picturePath) {
-        this.picturePath = picturePath;
-    }
-
-    /**
-     * Pet eats once.
-     *
-     */
-    public void eat() {
-        if (hunger == 10) {
-            System.out.print("");
-        } else if (hunger == 9) {
-            hunger++;
-        } else {
-            hunger += 2;
-            setPoints(1);
+        SaveLoader loader = new SaveLoader();
+        if (loader.saveFileExists()) {
+            initializeStats(loader.loadSaveFile());
         }
     }
 
+    /**
+     * Updates stats when a save is loaded.
+     *
+     * @param stats The wanted stats of the pet.
+     */
+    public void initializeStats(ArrayList<String> stats) {
+        if (stats.size() != 10) {
+            return;
+        }
+        name = stats.get(0);
+        age = stats.get(1);
+        points = Integer.parseInt(stats.get(2));
+        mood = stats.get(3);
+        hunger = Integer.parseInt(stats.get(4));
+        thirst = Integer.parseInt(stats.get(5));
+        fun = Integer.parseInt(stats.get(6));
+        sleep = Integer.parseInt(stats.get(7));
+        bladder = Integer.parseInt(stats.get(8));
+        picturePath = stats.get(9);
+    }
+
+    /**
+     * Adds points and checks if age should be altered.
+     */
+    public void addPoints() {
+        if (points == 99) {
+            age = "child";
+        }
+        if (points == 199) {
+            age = "teenager";
+        }
+        if (points == 299) {
+            age = "young adult";
+        }
+        if (points == 399) {
+            age = "adult";
+        }
+        if (points == 499) {
+            age = "elderly";
+        }
+        points++;
+    }
+    
     /**
      * Decreases hunger by one if possible.
      *
      */
     public void hungerDecreasesByOne() {
-        if (hunger == 0) {
-            System.out.print("");
-        } else {
+        if (!(hunger == 0)) {
             hunger--;
-        }
-    }
-
-    /**
-     * Pet drinks once.
-     *
-     */
-    public void drink() {
-        if (thirst == 10) {
-            System.out.print("");
-        } else if (thirst == 9) {
-            thirst++;
-        } else {
-            thirst += 2;
-            setPoints(1);
         }
     }
 
@@ -89,9 +97,7 @@ public class Pet {
      *
      */
     public void thirstDecreasesByOne() {
-        if (thirst == 0) {
-            System.out.print("");
-        } else {
+        if (!(thirst == 0)) {
             thirst--;
         }
     }
@@ -101,21 +107,17 @@ public class Pet {
      *
      */
     public void sleepDecreasesByOne() {
-        if (sleep == 0) {
-            System.out.print("");
-        } else {
+        if (!(sleep == 0)) {
             sleep--;
         }
     }
 
     /**
-     * Decreases sleep by one if possible.
+     * Decreases bladder by one if possible.
      *
      */
     public void bladderDecreasesByOne() {
-        if (bladder == 0) {
-            System.out.print("");
-        } else {
+        if (!(bladder == 0)) {
             bladder--;
         }
     }
@@ -125,10 +127,38 @@ public class Pet {
      *
      */
     public void funDecreasesByOne() {
-        if (fun == 0) {
-            System.out.print("");
-        } else {
+        if (!(fun == 0)) {
             fun--;
+        }
+    }
+
+    /**
+     * Pet eats once.
+     *
+     */
+    public void eat() {
+        if (!(hunger == 10)) {
+            if (hunger == 9) {
+                hunger++;
+            } else {
+                hunger += 2;
+                addPoints();
+            }
+        }
+    }
+
+    /**
+     * Pet drinks once.
+     *
+     */
+    public void drink() {
+        if (!(thirst == 10)) {
+            if (thirst == 9) {
+                thirst++;
+            } else {
+                thirst += 2;
+                addPoints();
+            }
         }
     }
 
@@ -137,13 +167,13 @@ public class Pet {
      *
      */
     public void haveFun() {
-        if (fun == 10) {
-            System.out.println("");
-        } else if (fun == 9) {
-            fun++;
-        } else {
-            fun += 2;
-            setPoints(1);
+        if (!(fun == 10)) {
+            if (fun == 9) {
+                fun++;
+            } else {
+                fun += 2;
+                addPoints();
+            }
         }
     }
 
@@ -154,7 +184,7 @@ public class Pet {
     public void emptyBladder() {
         if (bladder <= 5) {
             bladder = 10;
-            setPoints(1);
+            addPoints();
         }
     }
 
@@ -165,33 +195,46 @@ public class Pet {
     public void sleep() {
         if (sleep <= 5) {
             sleep = 10;
-//            bladder -= 2;
-//            hunger -= 2;
-//            thirst -= 2;
-//            fun++;
+            bladderDecreasesByOne();
+            bladderDecreasesByOne();
+            hungerDecreasesByOne();
+            hungerDecreasesByOne();
+            thirstDecreasesByOne();
+            thirstDecreasesByOne();
+            haveFun();
         }
     }
 
     /**
      * Counts the average happiness of the pet.
      *
+     * @return double average happiness
      */
     public double countAvgHappiness() {
         return (hunger + thirst + fun + sleep + bladder) / (1.0 * 5);
     }
 
     /**
-     * Returns the content wanted for a save file.
+     * Creates the content wanted for a save file.
      *
+     * @return String content for a save
      */
     public String contentToASave() {
-        return name + "\n" + age + "\n" + points + "\n" + mood + "\n" + hunger + "\n" + thirst + "\n" + fun + "\n" + sleep + "\n" + bladder;
+        return name + "\n" + age + "\n" + points + "\n" + mood + "\n" + hunger + "\n" + thirst + "\n" + fun + "\n" + sleep + "\n" + bladder + "\n" + picturePath;
     }
 
     @Override
     public String toString() {
         return "Name: " + name + "\nAge: " + age + "\nPoints: " + points + "\nMood: " + mood
                 + "\n\nHungry/Full: " + hunger + "\nThirsty/Full: " + thirst + "\nBored/Fun: " + fun + "\nTired/Awake: " + sleep + "\nBladder full/empty: " + bladder;
+    }
+
+    public String getPicturePath() {
+        return picturePath;
+    }
+
+    public void setPicturePath(String picturePath) {
+        this.picturePath = picturePath;
     }
 
     public String getName() {
@@ -250,12 +293,12 @@ public class Pet {
         this.fun = fun;
     }
 
-    public int getSleepiness() {
+    public int getSleep() {
         return sleep;
     }
 
-    public void setSleepiness(int sleepiness) {
-        this.sleep = sleepiness;
+    public void setSleep(int sleep) {
+        this.sleep = sleep;
     }
 
     public int getBladder() {
