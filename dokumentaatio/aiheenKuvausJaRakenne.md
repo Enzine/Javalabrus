@@ -20,9 +20,9 @@ Käyttöliittymä koostuu neljästä paneelista. Oikealla on kuva hoidokista sek
 	- leikittäminen  
 	- pissattaminen  
 	- nukuttaminen  
-@cr  
+      
 **_tallentaminen_**  
 	- tallennuksen nimeäminen  
-**_tallennuksen lataus_**  
+	- tallennuksen lataus 
 
 ![alustava luokkakaavio](/dokumentaatio/luokkakaavio.png)
