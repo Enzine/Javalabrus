@@ -24,4 +24,10 @@ Käyttöliittymä koostuu neljästä paneelista. Oikealla on kuva hoidokista sek
 	- tallennuksen nimeäminen  
 	- tallennuksen lataus 
 
+**Rakennekuvaus:** 
+
 ![alustava luokkakaavio](/dokumentaatio/luokkakaavio.png)
+
+Ohjelmaan kuuluu logiikka-, utility- ja uiluokkia. Pet luokassa tapahtuu kaikki lemmikkiin liittyvät toiminnot. Ui-luokkaan liittyy aina yksi Pet-luokan ilmentymä ja toisin päin. Ui näyttää pelin käyttäjälle. Ui-luokkaan liittyy lisäksi aina yksi TxtReader, MoodMaker, Saver sekä SaveLoader luokkien ilmentymät. TxtReader ei välttämättä aina liity Ui-luokkaan, sillä myös MoodMaker-luokalla on oma TxtReader. MoodMaker vastaa lemmikin olotilojen satunnaisgeneroimisesta txt-tiedostojen avulla. SaveLoader ja Saver -luokkia hyödynnetään tallennusten hallinnassa.
+
+
