@@ -18,9 +18,8 @@ import utility.TxtReader;
 /**
  * This class is the base for the games UI done with Java Swing.
  */
-public class FirstUI extends javax.swing.JFrame {
+public class Ui extends javax.swing.JFrame {
 
-    private Lab lab;
     private Pet pet;
     private TxtReader tx;
     private MoodMaker mm = new MoodMaker();
@@ -30,7 +29,7 @@ public class FirstUI extends javax.swing.JFrame {
     /**
      * Creates new form FirstUI
      */
-    public FirstUI() throws IOException {
+    public Ui() throws IOException {
         initComponents();
 
         Timer timer = new Timer();
@@ -45,21 +44,15 @@ public class FirstUI extends javax.swing.JFrame {
                 try {
                     mm.recogniseMood(pet);
                 } catch (FileNotFoundException ex) {
-                    Logger.getLogger(FirstUI.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Ui.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 jTextAreaTraits.setText(pet.toString());
 
 //                System.out.print("I would be called every 10 seconds");
             }
         }, 2000, 10000);
-        lab = new Lab();
         pet = new Pet("nemo");
-        try {
-            lab.addPet(pet);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(FirstUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+       
         jTextAreaTraits.setText(pet.toString());
 
         jLabel2.setIcon(new javax.swing.ImageIcon(pet.getPicturePath()));
@@ -342,7 +335,7 @@ public class FirstUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGiveWaterActionPerformed
 
     private void jButtonTakeOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTakeOutActionPerformed
-        lab.takePetOut(pet);
+        pet.emptyBladder();
         jTextAreaTraits.setText(pet.toString());
     }//GEN-LAST:event_jButtonTakeOutActionPerformed
 
@@ -360,7 +353,7 @@ public class FirstUI extends javax.swing.JFrame {
                 fs.createANewSaveFile(name, pet.contentToASave());
             }
         } catch (IOException ex) {
-            Logger.getLogger(FirstUI.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Ui.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_saveButtonActionPerformed
 
@@ -368,13 +361,13 @@ public class FirstUI extends javax.swing.JFrame {
         try {
             tx = new TxtReader("story/help.txt");
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(FirstUI.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Ui.class.getName()).log(Level.SEVERE, null, ex);
         }
         jTextAreaStory.setText(tx.makeAStringOfRows());
     }//GEN-LAST:event_helpButtonActionPerformed
 
     private void sleepButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sleepButtonActionPerformed
-        lab.sleepPet(pet);
+        pet.sleep();
         jTextAreaTraits.setText(pet.toString());
     }//GEN-LAST:event_sleepButtonActionPerformed
 
@@ -417,31 +410,32 @@ public class FirstUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FirstUI.class
+            java.util.logging.Logger.getLogger(Ui.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FirstUI.class
+            java.util.logging.Logger.getLogger(Ui.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FirstUI.class
+            java.util.logging.Logger.getLogger(Ui.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FirstUI.class
+            java.util.logging.Logger.getLogger(Ui.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new FirstUI().setVisible(true);
+                    new Ui().setVisible(true);
 
                 } catch (IOException ex) {
-                    Logger.getLogger(FirstUI.class
+                    Logger.getLogger(Ui.class
                             .getName()).log(Level.SEVERE, null, ex);
                 }
             }

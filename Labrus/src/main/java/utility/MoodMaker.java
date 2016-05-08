@@ -4,8 +4,6 @@ import logic.Pet;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This class generates random Strings (moods) from .txt files.
