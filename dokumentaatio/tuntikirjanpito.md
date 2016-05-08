@@ -18,3 +18,6 @@ Päivä | Tunnit | Kuvaus
 23.04.2016 | 1,5h | Tarinan tekoa ja päätöksiä suunnan suhteen
 25.04.2016 | 4h | Logiikan kanssa tappelua
 28.04.2016 | 2h | UI:n ja koodin yhteensovittelua
+01.05.2016 | 3h | Luokkarakenteen päivittelyä
+08.05.2016 | 2h | Viimeistelyä
+09.05.2016 | 1h | Lopullinen pushaus
